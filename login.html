@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #4e4e4e;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type='text'],
+    input[type='password'] {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type='text']:focus,
+    input[type='password']:focus {
+      border-color: #2575fc;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #2575fc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1e64d8;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    #forgot-password,
+    #register-link {
+      font-size: 14px;
+      color: #2575fc;
+      text-decoration: none;
+    }
+
+    #forgot-password:hover,
+    #register-link:hover {
+      text-decoration: underline;
+    }
+
+    #error-message {
+      color: red;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return validateForm()">
+          <div class="input-group">
+            <label for="username">Nama / Email:</label>
+            <input type="text" id="username" name="username" placeholder="Masukkan nama atau email" required />
+          </div>
+          <div class="input-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Masukkan password" required />
+            <button><input type="button" value="Masuk" onclick="submitAndRedirect()" /></button>
+          </div>
+          <div class="form-footer">
+            <a href="forgot.html" id="forgot-password">Forgot Password?</a>
+            <a href="register.html" id="register-link">Register</a>
+          </div>
+          <p id="error-message"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function validateForm() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var errorMessage = document.getElementById('error-message');
+
+        // Reset error message
+        errorMessage.innerHTML = '';
+
+        // Validasi jika username/email atau password kosong
+        if (username == '' || password == '') {
+          errorMessage.innerHTML = 'Harap isi semua kolom!';
+          return false;
+        }
+
+        // Contoh validasi email (untuk username jika berupa email)
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (username != '' && !emailPattern.test(username)) {
+          errorMessage.innerHTML = 'Masukkan email yang valid!';
+          return false;
+        }
+
+        // Cek apakah password sesuai
+        if (password.length < 6) {
+          errorMessage.innerHTML = 'Password harus minimal 6 karakter!';
+          return false;
+        }
+
+        // Validasi berhasil
+        alert('Form berhasil dikirim!');
+        return true;
+      }
+      function submitAndRedirect() {
+        // Lakukan submit form
+        document.getElementById('myForm').submit();
+
+        // Arahkan ke halaman lain setelah submit
+        window.location.href = 'pembayaran.html'; // Ganti dengan URL tujuan
+      }
+    </script>
+  </body>
+</html>
